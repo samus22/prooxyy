@@ -1,2 +1,5 @@
 # prooxyy
-Prooxy Project for handling events on online
+Prooxyy Project for handling events on online
+
+## Deploy
+After you have cloned the repository
