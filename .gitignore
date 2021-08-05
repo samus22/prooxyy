@@ -70,5 +70,4 @@ build/
 
 # VS Code
 .vscode
-.github
 .dart_tool
