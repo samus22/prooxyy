@@ -137,7 +137,7 @@ List<Map<String, dynamic>> team = [
 
 /// Method which launches a select file dialog and uploads the file to Firestore Storage
 /// 
-void selectFile() async {
+void uploadFile() async {
   FilePickerResult? result = await FilePicker.platform.pickFiles();
 
   if (result != null) {

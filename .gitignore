@@ -65,10 +65,10 @@ node_modules/
 # dotenv environment variables file
 .env
 
-# Flutter build
-build/
-
-# VS Code
+# Add files
 .vscode
 .github
 .dart_tool
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies

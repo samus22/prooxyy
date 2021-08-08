@@ -6,10 +6,12 @@ import 'package:prooxyy_events/pages/booking.dart';
 import 'package:prooxyy_events/pages/dashboard.dart';
 import 'package:prooxyy_events/pages/home.dart';
 import 'package:prooxyy_events/pages/login.dart';
+import 'package:prooxyy_events/pages/our_values.dart';
 import 'package:prooxyy_events/pages/portfolio.dart';
 import 'package:prooxyy_events/pages/service.dart';
 import 'package:prooxyy_events/services/all_users.dart';
 import 'package:prooxyy_events/services/user.dart';
+import 'package:prooxyy_events/widgets/roulette_game.dart';
 import 'package:provider/provider.dart';
 
 class WebAppBar extends StatefulWidget {
@@ -117,6 +119,21 @@ class _WebAppBarState extends State<WebAppBar> {
           ),
           InkWell(
             onTap: () {
+              Navigator.of(context).pushNamed(BookingPage.routeName);
+              _setIndex(4);
+            },
+            child: Text(
+              'BOOKER',
+              style: TextStyle(
+                color:
+                    index == 4 ? Theme.of(context).primaryColor : Colors.black,
+                fontWeight: FontWeight.bold,
+                // fontSize: 17.0,
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () {
               Navigator.of(context).pushNamed(Home.routeName);
               _setIndex(0);
             },
@@ -146,11 +163,26 @@ class _WebAppBarState extends State<WebAppBar> {
           ),
           InkWell(
             onTap: () {
-              Navigator.of(context).pushNamed(BookingPage.routeName);
+              Navigator.of(context).pushNamed(OurValuesPage.routeName);
               _setIndex(4);
             },
             child: Text(
-              'BOOKER',
+              'NOS VALEURS',
+              style: TextStyle(
+                color:
+                    index == 4 ? Theme.of(context).primaryColor : Colors.black,
+                fontWeight: FontWeight.bold,
+                // fontSize: 17.0,
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.of(context).pushNamed(RouletteGame.routeName);
+              _setIndex(4);
+            },
+            child: Text(
+              'TOMBOLA',
               style: TextStyle(
                 color:
                     index == 4 ? Theme.of(context).primaryColor : Colors.black,
