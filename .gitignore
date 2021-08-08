@@ -71,3 +71,5 @@ build/
 # VS Code
 .vscode
 .dart_tool
+.flutter-plugins-dependencies
+.packages
