@@ -48,7 +48,9 @@ class _SignInFormState extends State<SignInForm> {
     _formKey.currentState!.save();
 
     // Sign in on plateform
-    UserService2.instance.signIn(userDetails['email'], userDetails['password']);
+    UserService2.instance.signIn(userDetails['email'], userDetails['password'])
+    .then((value) => print('User logged in'))
+    .catchError((error) => print('User unable to login'));
 
   }
 

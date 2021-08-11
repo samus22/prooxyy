@@ -1,5 +1,3 @@
-import 'package:carousel_slider/carousel_options.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -9,6 +7,8 @@ import 'package:prooxyy_events/models/category.dart';
 import 'package:prooxyy_events/services/catalog.dart';
 import 'package:prooxyy_events/services/category.dart';
 import 'package:prooxyy_events/widgets/app_button.dart';
+import 'package:prooxyy_events/widgets/catalog_list_fragment.dart';
+import 'package:prooxyy_events/widgets/image_uploader.dart';
 
 class CatalogPageForm extends StatefulWidget {
   final String? catalogEntryId;
@@ -60,7 +60,7 @@ class _CatalogPageFormState extends State<CatalogPageForm> {
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.next,
           decoration: InputDecoration(
-            prefix: Icon(Icons.calendar_today),
+            prefixIcon: Icon(Icons.ac_unit),
             errorMaxLines: 2,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
@@ -77,7 +77,7 @@ class _CatalogPageFormState extends State<CatalogPageForm> {
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.next,
           decoration: InputDecoration(
-            prefix: Icon(Icons.calendar_today),
+            prefixIcon: Icon(Icons.tag_rounded),
             errorMaxLines: 2,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
@@ -94,7 +94,7 @@ class _CatalogPageFormState extends State<CatalogPageForm> {
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.next,
           decoration: InputDecoration(
-            prefix: Icon(Icons.calendar_today),
+            prefixIcon: Icon(Icons.calendar_today),
             errorMaxLines: 2,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
@@ -111,66 +111,63 @@ class _CatalogPageFormState extends State<CatalogPageForm> {
             TextFormField(
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.next,
+              controller: _categoryFN,
               decoration: InputDecoration(
                   errorMaxLines: 2,
-                  icon: Icon(Icons.tag),
+                  prefixIcon: Icon(Icons.tag),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
                   hintText: "Sélectionnez la catégorie"),
             ),
-            FutureBuilder(
-                future: CategoryService.instance.getAll(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.hasError) {
-                    return Text('Something went wrong');
-                  }
+            Positioned(
+                right: 20.0,
+                top: 8.0,
+                child: FutureBuilder(
+                    future: CategoryService.instance.getAll(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.hasError) {
+                        return Text('Something went wrong');
+                      }
 
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Text("Loading");
-                  }
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return CircularProgressIndicator(
+                          value: null,
+                          semanticsLabel: 'Linear progress indicator',
+                        );
+                      }
 
-                  List<Category> categories = snapshot.data!.docs
-                      .map((doc) => Category.fromMap2(doc))
-                      .toList();
+                      List<Category> categories = snapshot.data!.docs
+                          .map((doc) => Category.fromMap2(doc))
+                          .toList();
 
-                  return PopupMenuButton<Category>(
-                    icon: Icon(Icons.keyboard_arrow_down),
-                    iconSize: 20.0,
-                    itemBuilder: (ctx) {
-                      return categories.map((category) {
-                        return PopupMenuItem(
-                            value: category,
-                            child: Text('Catégorie : ${category.name}'));
-                      }).toList();
-                    },
-                    onSelected: (newValue) {
-                      catalogEntry.category = newValue.name;
-                      catalogEntry.categoryId = newValue.id;
-                      setState(() {
-                        _categoryFN.text = newValue.name;
-                      });
-                    },
-                  );
-                })
+                      return PopupMenuButton<Category>(
+                        icon: Icon(Icons.keyboard_arrow_down),
+                        iconSize: 20.0,
+                        itemBuilder: (ctx) {
+                          return categories.map((category) {
+                            return PopupMenuItem(
+                                value: category,
+                                child: Text('Catégorie : ${category.name}'));
+                          }).toList();
+                        },
+                        onSelected: (newValue) {
+                          catalogEntry.category = newValue.name;
+                          catalogEntry.categoryId = newValue.id;
+                          setState(() {
+                            _categoryFN.text = newValue.name;
+                          });
+                        },
+                      );
+                    }))
           ],
         ),
         vBox20(),
-        CarouselSlider(
-          options: CarouselOptions(height: 400.0),
-          items: [1, 2, 3, 4, 5].map((i) {
-            return Builder(
-              builder: (BuildContext context) {
-                return Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.symmetric(horizontal: 5.0),
-                    decoration: BoxDecoration(color: Colors.amber),
-                    child: Text(
-                      'text $i',
-                      style: TextStyle(fontSize: 16.0),
-                    ));
-              },
-            );
-          }).toList(),
-        ),
+        ImageUploader(onFileAdded: (List<String> media) {
+          print('These are the media saved $media');
+          catalogEntry.media = media;
+        }),
         vBox20(),
         AppButton(
             text: 'Sauvegarder',
