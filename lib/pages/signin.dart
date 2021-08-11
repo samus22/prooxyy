@@ -26,7 +26,7 @@ class _SignInPageState extends State<SignInPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            WebAppBar(5),
+            WebAppBar(7),
             Row(
               children: [
                 Stack(

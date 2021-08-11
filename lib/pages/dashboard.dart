@@ -45,6 +45,13 @@ class _DashboardState extends State<Dashboard> {
     'Déconnexion',
   ];
 
+  static const List<String> _admin = [
+    'Catalogue',
+    'Services',
+    'A Propos',
+    'Nos Valeurs'
+  ];
+
   @override
   void didChangeDependencies() {
     if (!_didChange) {
