@@ -34,7 +34,7 @@ class _RouletteGameState extends State<RouletteGame> {
     return Scaffold(
       body: ListView(
         children: [
-          WebAppBar(0),
+          WebAppBar(6),
           vBox60(),
           Container(
             width: double.infinity,

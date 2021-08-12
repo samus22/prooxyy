@@ -68,6 +68,9 @@ node_modules/
 # Flutter build
 build/
 
-# VS Code
+# Add files
 .vscode
 .dart_tool
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies

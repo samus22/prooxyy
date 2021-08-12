@@ -18,6 +18,9 @@ class CategoryListFragment extends StatefulWidget {
 class _CategoryListFragmentState extends State<CategoryListFragment> {
   List<Category> _list = [];
   bool _didChange = false;
+  bool _multiSelection = true;
+  List<int> _selection = [];
+  bool _init = false;
 
   @override
   void didChangeDependencies() {
@@ -42,9 +45,11 @@ class _CategoryListFragmentState extends State<CategoryListFragment> {
             return Text('Something went wrong');
           }
 
-          if (snapshot.connectionState == ConnectionState.waiting) {
+          if (snapshot.connectionState == ConnectionState.waiting && !_init) {
             return Text("Loading");
           }
+
+          _init = true;
 
           List<Category> categories =
               snapshot.data!.docs.map((e) => Category.fromMap2(e)).toList();
@@ -53,6 +58,43 @@ class _CategoryListFragmentState extends State<CategoryListFragment> {
             itemBuilder: (ctx, index) => ListView(
               shrinkWrap: true,
               children: [
+                _multiSelection ?
+                CheckboxListTile(
+                  onChanged: (value) {
+                    if (value != null) {
+                      print('index $index');
+                      setState(() {
+                        value ? _selection.add(index) : _selection.remove(index);
+                        print('new selection $_selection $value');
+                      });
+                    }
+                  },
+                  value: this._selection.contains(index),
+                  secondary: CircleAvatar(
+                    backgroundColor: Colors.amber,
+                    radius: 20.0,
+                    backgroundImage: AssetImage(
+                      categories[index].imageUrl, // _list[index].imageUrl,
+                    ),
+                  ),
+                  title: Text(
+                    categories[index].name, // _list[index].name,
+                    style: TextStyle(
+                      letterSpacing: 1.2,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0,
+                    ),
+                  ),
+                  subtitle: Text(
+                    categories[index].description, // _list[index].description,
+                    style: TextStyle(
+                      // overflow: TextOverflow.ellipsis,
+                      letterSpacing: 1.2,
+                    ),
+                    maxLines: 2,
+                  )
+                )
+                :
                 ListTile(
                   onTap: () {
                     widget.load(categories[index].id); // widget.load(_list[index].id);
@@ -91,6 +133,7 @@ class _CategoryListFragmentState extends State<CategoryListFragment> {
 
   @override
   Widget build(BuildContext context) {
+    print('categories $_selection');
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: ListView(

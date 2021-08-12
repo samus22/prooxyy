@@ -6,13 +6,13 @@ class Asset {
   String id;
   String name;
   String description;
-  String imageUrl;
+  String media;
 
   Asset({
     required this.id,
     required this.name,
     required this.description,
-    required this.imageUrl,
+    required this.media,
   });
 
   
@@ -26,7 +26,7 @@ class Asset {
       id: id ?? this.id,
       name: name ?? this.name,
       description: description ?? this.description,
-      imageUrl: imageUrl ?? this.imageUrl,
+      media: imageUrl ?? this.media,
     );
   }
 
@@ -34,7 +34,7 @@ class Asset {
     return {
       'name': name,
       'description': description,
-      'imageUrl': imageUrl,
+      'imageUrl': media,
     };
   }
 
@@ -43,7 +43,7 @@ class Asset {
       id: id,
       name: map['name'],
       description: map['description'],
-      imageUrl: map['imageUrl'],
+      media: map['imageUrl'],
     );
   }
 
@@ -54,7 +54,7 @@ class Asset {
       id: document.id,
       name: map['name'],
       description: map['description'],
-      imageUrl: map['imageUrl'],
+      media: map['imageUrl'],
     );
   }
 
@@ -65,7 +65,7 @@ class Asset {
 
   @override
   String toString() {
-    return 'Asset(id: $id, name: $name, description: $description, imageUrl: $imageUrl)';
+    return 'Asset(id: $id, name: $name, description: $description, imageUrl: $media)';
   }
 
   @override
@@ -76,7 +76,7 @@ class Asset {
         other.id == id &&
         other.name == name &&
         other.description == description &&
-        other.imageUrl == imageUrl;
+        other.media == media;
   }
 
   @override
@@ -84,6 +84,6 @@ class Asset {
     return id.hashCode ^
         name.hashCode ^
         description.hashCode ^
-        imageUrl.hashCode;
+        media.hashCode;
   }
 }

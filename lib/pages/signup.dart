@@ -65,7 +65,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       body: ListView(
         children: [
-          WebAppBar(5),
+          WebAppBar(8),
           Row(
             children: [
               Stack(

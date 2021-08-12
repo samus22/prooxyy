@@ -33,7 +33,7 @@ class _BookingPageState extends State<BookingPage> {
     return Scaffold(
       body: ListView(
         children: [
-          WebAppBar(4),
+          WebAppBar(3),
           SubSlide(
             image: 'assets/images/first.png',
             text: 'Booker',

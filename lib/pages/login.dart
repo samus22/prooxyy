@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            WebAppBar(5),
+            WebAppBar(7),
             Row(
               children: [
                 Stack(
