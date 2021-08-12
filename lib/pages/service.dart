@@ -126,7 +126,7 @@ class ServicesPage extends StatelessWidget {
                             ServiceTile(
                               isZero: e['zero'],
                               description: e['cat'].description!,
-                              image: e['cat'].imageUrl!,
+                              image: e['cat'].media!,
                               title: e['cat'].name!,
                               isLast: e['last'],
                             ),

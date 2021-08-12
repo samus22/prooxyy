@@ -21,7 +21,7 @@ class AboutUsPage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          WebAppBar(3),
+          WebAppBar(4),
           SubSlide(
             image: 'assets/images/first.png',
             text: 'Qui sommes nous ?',

@@ -99,7 +99,7 @@ class _BookingListFragmentState extends State<BookingListFragment> {
                       // backgroundImage: AssetImage(_list[index]['']),
                     ),
                     title: Text(
-                      bookings[index].id, // _list[index]['title']!,
+                      bookings[index].name, // _list[index]['title']!,
                       style: TextStyle(
                         letterSpacing: 1.2,
                         fontWeight: FontWeight.bold,

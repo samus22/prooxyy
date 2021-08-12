@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Catalog {
-  String id;
+  String? id;
   String name;
   String theme;
   String description;
@@ -12,7 +12,7 @@ class Catalog {
   List<String> media;
 
   Catalog({
-    required this.id,
+    this.id,
     required this.name,
     required this.theme,
     required this.category,

@@ -137,14 +137,14 @@ List<Map<String, dynamic>> team = [
 
 /// Method which launches a select file dialog and uploads the file to Firestore Storage
 /// 
-void selectFile() async {
+Future<TaskSnapshot?> uploadFile() async {
   FilePickerResult? result = await FilePicker.platform.pickFiles();
 
   if (result != null) {
     PlatformFile file = result.files.first;
 
     try {
-      await FirebaseStorage.instance
+      return FirebaseStorage.instance
             .ref('uploads/${DateTime.now().millisecondsSinceEpoch}.${file.extension}')
             .putData(file.bytes!);
       } on FirebaseException catch (e) {
@@ -153,4 +153,10 @@ void selectFile() async {
   } else {
     print('User canceled picker');
   }
+}
+
+Future<String> getDownloadUrl(String fileRef) async {
+ return await FirebaseStorage.instance
+      .ref(fileRef)
+      .getDownloadURL();
 }

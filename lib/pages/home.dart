@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prooxyy_events/helpers/helpers.dart';
 import 'package:prooxyy_events/widgets/appbar.dart';
+import 'package:prooxyy_events/widgets/catalog_page_form.dart';
 import 'package:prooxyy_events/widgets/category_bloc.dart';
 import 'package:prooxyy_events/widgets/comment_bloc.dart';
 import 'package:prooxyy_events/widgets/footer.dart';
@@ -69,6 +70,8 @@ class Home extends StatelessWidget {
                 const SizedBox(
                   height: 80.0,
                 ),
+                // CatalogPageForm(),
+                // vBox80(),
                 ImageBloc(),
                 vBox80(),
                 headerText('Un aperçu de notre travail', size: 50.0),

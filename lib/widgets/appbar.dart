@@ -36,7 +36,7 @@ class _WebAppBarState extends State<WebAppBar> {
 
   void _setIndex(int i) {
     if (i == index) return;
-    if (i > 5) return;
+    if (i > 7) return;
     if (i < 0) return;
     setState(() {
       index = i;
@@ -54,6 +54,7 @@ class _WebAppBarState extends State<WebAppBar> {
 
   @override
   Widget build(BuildContext context) {
+    print('This is the index $index');
     return Container(
       width: double.infinity,
       height: 100.0,
@@ -120,13 +121,13 @@ class _WebAppBarState extends State<WebAppBar> {
           InkWell(
             onTap: () {
               Navigator.of(context).pushNamed(BookingPage.routeName);
-              _setIndex(4);
+              _setIndex(3);
             },
             child: Text(
               'BOOKER',
               style: TextStyle(
                 color:
-                    index == 4 ? Theme.of(context).primaryColor : Colors.black,
+                    index == 3 ? Theme.of(context).primaryColor : Colors.black,
                 fontWeight: FontWeight.bold,
                 // fontSize: 17.0,
               ),
@@ -149,13 +150,13 @@ class _WebAppBarState extends State<WebAppBar> {
           InkWell(
             onTap: () {
               Navigator.of(context).pushNamed(AboutUsPage.routeName);
-              _setIndex(3);
+              _setIndex(4);
             },
             child: Text(
               'QUI SOMMES NOUS',
               style: TextStyle(
                 color:
-                    index == 3 ? Theme.of(context).primaryColor : Colors.black,
+                    index == 4 ? Theme.of(context).primaryColor : Colors.black,
                 fontWeight: FontWeight.bold,
                 // fontSize: 16.0,
               ),
@@ -164,13 +165,13 @@ class _WebAppBarState extends State<WebAppBar> {
           InkWell(
             onTap: () {
               Navigator.of(context).pushNamed(OurValuesPage.routeName);
-              _setIndex(4);
+              _setIndex(5);
             },
             child: Text(
               'NOS VALEURS',
               style: TextStyle(
                 color:
-                    index == 4 ? Theme.of(context).primaryColor : Colors.black,
+                    index == 5 ? Theme.of(context).primaryColor : Colors.black,
                 fontWeight: FontWeight.bold,
                 // fontSize: 17.0,
               ),
@@ -179,13 +180,13 @@ class _WebAppBarState extends State<WebAppBar> {
           InkWell(
             onTap: () {
               Navigator.of(context).pushNamed(RouletteGame.routeName);
-              _setIndex(4);
+              _setIndex(6);
             },
             child: Text(
               'TOMBOLA',
               style: TextStyle(
                 color:
-                    index == 4 ? Theme.of(context).primaryColor : Colors.black,
+                    index == 6 ? Theme.of(context).primaryColor : Colors.black,
                 fontWeight: FontWeight.bold,
                 // fontSize: 17.0,
               ),
@@ -198,13 +199,13 @@ class _WebAppBarState extends State<WebAppBar> {
               } else {
                 Navigator.of(context).pushNamed(LoginPage.routeName);
               }
-              _setIndex(5);
+              _setIndex(7);
             },
             child: Text(
               UserService2.instance.isLogged() ? 'MON COMPTE' : 'CONNEXION',
               style: TextStyle(
                 color:
-                    index == 5 ? Theme.of(context).primaryColor : Colors.black,
+                    index == 7 ? Theme.of(context).primaryColor : Colors.black,
                 fontWeight: FontWeight.bold,
                 // fontSize: 17.0,
               ),

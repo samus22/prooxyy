@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Variable {
-  String id;
+  String? id;
   String name;
   String type;
   dynamic value;
 
   Variable({
-    required this.id,
+    this.id,
     required this.name,
     required this.type,
     required this.value

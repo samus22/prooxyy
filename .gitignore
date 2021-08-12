@@ -66,10 +66,11 @@ node_modules/
 .env
 
 # Flutter build
-build/
+build
 
-# VS Code
+# Add files
 .vscode
 .dart_tool
-.flutter-plugins-dependencies
 .packages
+.flutter-plugins
+.flutter-plugins-dependencies
