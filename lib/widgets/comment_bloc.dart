@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:prooxyy_events/models/rating.dart';
-import 'package:prooxyy_events/services/rating.dart';
+import 'package:prooxyy_events/models/comment.dart';
+import 'package:prooxyy_events/services/comment.dart';
 import 'package:prooxyy_events/widgets/comment_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +12,7 @@ class CommentBloc extends StatefulWidget {
 }
 
 class _CommentBlocState extends State<CommentBloc> {
-  List<Rating> _list = [];
+  List<Comment> _list = [];
   int _count = 10;
   int _index = 0;
   bool _didChange = false;
@@ -35,7 +35,8 @@ class _CommentBlocState extends State<CommentBloc> {
   void didChangeDependencies() {
 
     if (!_didChange) {
-      _list = [...Provider.of<RatingService>(context).items];
+      CommentService2.instance.getAll().then((value) => _list = value.docs.map((document) => Comment.fromMap2(document)).toList());
+      // _list = [...Provider.of<CommentService>(context).items];
     }
     
     super.didChangeDependencies();
@@ -43,7 +44,7 @@ class _CommentBlocState extends State<CommentBloc> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return _list.length > 0 ? Container(
       height: 350.0,
       width: MediaQuery.of(context).size.width -
           (MediaQuery.of(context).size.width * 0.14),
@@ -107,6 +108,6 @@ class _CommentBlocState extends State<CommentBloc> {
           ),
         ],
       ),
-    );
+    ): Container();
   }
 }

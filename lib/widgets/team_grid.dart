@@ -2,14 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:prooxyy_events/helpers/helpers.dart';
-import 'package:prooxyy_events/models/asset.dart';
-import 'package:prooxyy_events/services/asset.dart';
+import 'package:prooxyy_events/models/page_block.dart';
+import 'package:prooxyy_events/services/page_block.dart';
 
 class TeamGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: AssetService.instance.getAll(),
+        future: PageBlockService.instance.getAll(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
 
           if (snapshot.hasError) {
@@ -25,7 +25,7 @@ class TeamGrid extends StatelessWidget {
             );
           }
 
-          List<Asset> assets = snapshot.data!.docs.map((doc) => Asset.fromMap2(doc)).toList();
+          List<PageBlock> assets = snapshot.data!.docs.map((doc) => PageBlock.fromMap2(doc)).toList();
 
           return GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

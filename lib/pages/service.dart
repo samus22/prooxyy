@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 // -- Helpers
 import 'package:prooxyy_events/helpers/helpers.dart';
+import 'package:prooxyy_events/models/page_block.dart';
+import 'package:prooxyy_events/services/page_block.dart';
 
 // -- Services
 import 'package:prooxyy_events/services/category.dart';
@@ -30,6 +34,26 @@ class ServicesPage extends StatelessWidget {
       zero = !zero;
     });
     services[items.length - 1]['last'] = false;
+
+    return FutureBuilder(
+      future: PageBlockService.instance.getAll(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot
+    ) {
+
+      if (snapshot.hasError) {
+        return Text('Error produced');
+      }
+
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return LoadingIndicator(
+              indicatorType: Indicator.ballPulse,
+              colors: const [Colors.orange, Colors.amber, Colors.yellow],
+              strokeWidth: 2,
+              pathBackgroundColor: Colors.black
+        );
+      }
+
+      List<PageBlock> assets = snapshot.data!.docs.map((document) => PageBlock.fromMap2(document)).toList();
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -119,19 +143,19 @@ class ServicesPage extends StatelessWidget {
                     ],
                   ),
                   vBox80(),
-                  ...services
+                  ...services.asMap().entries
                       .map(
                         (e) => Column(
                           children: [
                             ServiceTile(
-                              isZero: e['zero'],
-                              description: e['cat'].description!,
-                              image: e['cat'].media!,
-                              title: e['cat'].name!,
-                              isLast: e['last'],
+                              isZero: e.key % 2, // e['zero'],
+                              description: e.value['cat'].description!,
+                              image: e.value['cat'].imageUrl!,
+                              title: e.value['cat'].name!,
+                              isLast: services.length - 1 == e.key, // e['last'],
                             ),
-                            if (!e['last']) Divider(),
-                            if (!e['last']) vBox60(),
+                            if (services.length - 1 == e.key /* !e['last'] */) Divider(),
+                            if (services.length - 1 == e.key /* !e['last'] */) vBox60(),
                           ],
                         ),
                       )
@@ -147,5 +171,6 @@ class ServicesPage extends StatelessWidget {
         ),
       ),
     );
+    });
   }
 }

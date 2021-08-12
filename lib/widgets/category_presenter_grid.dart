@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:prooxyy_events/helpers/helpers.dart';
 import 'package:prooxyy_events/models/booking.dart';
+import 'package:prooxyy_events/models/catalog.dart';
 import 'package:prooxyy_events/models/category.dart';
 import 'package:prooxyy_events/pages/catalog.dart';
 import 'package:prooxyy_events/services/all_bookings.dart';
 import 'package:prooxyy_events/services/booking.dart';
+import 'package:prooxyy_events/services/catalog.dart';
 import 'package:prooxyy_events/services/category.dart';
 // import 'package:prooxyy_events/repositories/categories.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +36,7 @@ class CategoryPresenterGrid extends StatelessWidget {
     // String categoryId = category?.id ?? "";
 
     return StreamBuilder<QuerySnapshot>(
-        stream: BookingService.instance.getByCategoryAndStatus(categoryId, Status.DONE).asStream(),
+        stream: CatalogService.instance.getByCategoryId(categoryId).asStream(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Text('Something went wrong');
@@ -44,11 +46,11 @@ class CategoryPresenterGrid extends StatelessWidget {
             return Text("Loading");
           }
 
-          List<Booking> bookings =
-              snapshot.data!.docs.map((e) => Booking.fromMap2(e)).toList();
-          print('Bookings in the presenter grid: $bookings');
+          List<Catalog> catalogEntries =
+              snapshot.data!.docs.map((e) => Catalog.fromMap2(e)).toList();
+          print('Bookings in the presenter grid: $catalogEntries');
 
-          return bookings.length < 1 // list.length < 1
+          return catalogEntries.length < 1 // list.length < 1
               ? Container()
               : GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -56,13 +58,13 @@ class CategoryPresenterGrid extends StatelessWidget {
                     mainAxisSpacing: 20.0,
                     crossAxisSpacing: 100.0,
                   ),
-                  itemCount: bookings.length, // list.length,
+                  itemCount: catalogEntries.length, // list.length,
                   shrinkWrap: true,
                   itemBuilder: (ctx, index) => InkWell(
                     onTap: () {
                       Navigator.of(context).pushNamed(
                         CatalogPage.routeName,
-                        arguments: bookings[index].id, // list[index].id,
+                        arguments: catalogEntries[index].id, // list[index].id,
                       );
                     },
                     child: Container(
@@ -81,7 +83,7 @@ class CategoryPresenterGrid extends StatelessWidget {
                           ),
                           vBox20(),
                           Text(
-                            bookings[index].name, // list[index].name,
+                            catalogEntries[index].name, // list[index].name,
                             style: TextStyle(
                               fontFamily: 'Dancing',
                               fontSize: 60.0,
@@ -95,7 +97,7 @@ class CategoryPresenterGrid extends StatelessWidget {
                               horizontal: 20.0,
                             ),
                             child: Text(
-                              bookings[index].theme.toUpperCase(), // list[index].theme.toUpperCase(),
+                              catalogEntries[index].theme.toUpperCase(), // list[index].theme.toUpperCase(),
                               maxLines: 3,
                               style: TextStyle(
                                 fontSize: 20.0,

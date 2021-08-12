@@ -13,7 +13,7 @@ import 'package:prooxyy_events/widgets/catalog_details_fragment.dart';
 import 'package:prooxyy_events/widgets/category_details_fragment.dart';
 import 'package:prooxyy_events/widgets/quote_details_fragment.dart';
 import 'package:prooxyy_events/widgets/favorites_fragment.dart';
-import 'package:prooxyy_events/widgets/rating_details_fragment.dart';
+import 'package:prooxyy_events/widgets/comment_details_fragment.dart';
 import 'package:prooxyy_events/widgets/profile_details_fragment.dart';
 import 'package:prooxyy_events/widgets/rounded_button.dart';
 import 'package:prooxyy_events/widgets/user_details_fragment.dart';

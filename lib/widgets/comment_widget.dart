@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:prooxyy_events/helpers/helpers.dart';
 
 // -- Rating
-import 'package:prooxyy_events/models/rating.dart';
+import 'package:prooxyy_events/models/comment.dart';
 
 class CommentWidget extends StatelessWidget {
-  final Rating rating;
+  final Comment rating;
 
   CommentWidget({
     required this.rating,

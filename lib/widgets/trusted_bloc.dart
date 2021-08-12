@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:prooxyy_events/helpers/helpers.dart';
+import 'package:prooxyy_events/models/variable.dart';
+import 'package:prooxyy_events/services/variable.dart';
 
 class TrustedBloc extends StatelessWidget {
   Widget buildTiles(
@@ -10,16 +13,29 @@ class TrustedBloc extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
-          number.toString(),
-          style: TextStyle(
-            letterSpacing: 1.5,
-            color: color,
-            fontWeight: FontWeight.bold,
-            fontSize: 40.0,
-          ),
-          textAlign: TextAlign.center,
-        ),
+        FutureBuilder(
+            future: VariableService.instance.getByNameAsSnapshot(name),
+            builder: (BuildContext context,
+                AsyncSnapshot<DocumentSnapshot> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Text('Loading');
+              }
+
+              if (snapshot.data != null) 
+              
+              Variable numb = Variable.fromMap2(snapshot.data!);
+
+              return Text(
+                number.toString(),
+                style: TextStyle(
+                  letterSpacing: 1.5,
+                  color: color,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40.0,
+                ),
+                textAlign: TextAlign.center,
+              );
+            }),
         vBox20(),
         Container(
           height: 100,

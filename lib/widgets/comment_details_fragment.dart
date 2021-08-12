@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:prooxyy_events/helpers/helpers.dart';
-import 'package:prooxyy_events/models/rating.dart';
+import 'package:prooxyy_events/models/comment.dart';
 import 'package:prooxyy_events/services/all_bookings.dart';
 import 'package:prooxyy_events/services/all_users.dart';
-import 'package:prooxyy_events/services/rating.dart';
+import 'package:prooxyy_events/services/comment.dart';
 // import 'package:prooxyy_events/repositories/all_users.dart';
 // import 'package:prooxyy_events/repositories/Notes.dart';
-import 'package:prooxyy_events/widgets/rating_list_fragment.dart';
+import 'package:prooxyy_events/widgets/comment_list_fragment.dart';
 // import 'package:prooxyy_events/widgets/Note_fragment2.dart';
 import 'package:provider/provider.dart';
 
@@ -28,7 +28,7 @@ class _RatingDetailsFragmentState extends State<RatingDetailsFragment> {
   bool _didChange = false;
   bool _none = false;
   String idE = '';
-  Rating rating = Rating(
+  Comment rating = Comment(
     id: '',
     value: 1.0,
     avatar: '',
@@ -44,7 +44,7 @@ class _RatingDetailsFragmentState extends State<RatingDetailsFragment> {
   void didChangeDependencies() {
     if (!_didChange) {
       if (idE != '') {
-        rating = Provider.of<RatingService>(context).getNoteByBookingId(idE);
+        rating = Provider.of<CommentService>(context).getNoteByBookingId(idE);
         _didChange = true;
       }
     }
@@ -58,7 +58,7 @@ class _RatingDetailsFragmentState extends State<RatingDetailsFragment> {
     });
     try {
       rating =
-          Provider.of<RatingService>(context, listen: false).getNoteByBookingId(id);
+          Provider.of<CommentService>(context, listen: false).getNoteByBookingId(id);
       setState(() {
         _none = false;
       });
@@ -75,7 +75,7 @@ class _RatingDetailsFragmentState extends State<RatingDetailsFragment> {
     validated = _formKey.currentState!.validate();
     if (!validated) return;
     _formKey.currentState!.save();
-    Provider.of<RatingService>(context, listen: false)
+    Provider.of<CommentService>(context, listen: false)
         .patchNote(
       id: rating.id,
       booking: rating.booking,
@@ -98,7 +98,7 @@ class _RatingDetailsFragmentState extends State<RatingDetailsFragment> {
     final u = Provider.of<AllUsersRepo>(context, listen: false).user;
     final bok =
         Provider.of<AllBookingRepo>(context, listen: false).getBookingById(idE);
-    Provider.of<RatingService>(context, listen: false)
+    Provider.of<CommentService>(context, listen: false)
         .addNote(
       id: DateTime.now().toString(),
       // bookingId: bok.id,
@@ -129,7 +129,7 @@ class _RatingDetailsFragmentState extends State<RatingDetailsFragment> {
   }
 
   void _delete() {
-    Provider.of<RatingService>(context, listen: false).deleteNote(rating.id).then(
+    Provider.of<CommentService>(context, listen: false).deleteNote(rating.id).then(
       (value) {
         if (value) {
           _reload();

@@ -2,27 +2,26 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Asset {
+class PageBlock {
   String id;
   String name;
   String description;
   String media;
 
-  Asset({
+  PageBlock({
     required this.id,
     required this.name,
     required this.description,
     required this.media,
   });
 
-  
-  Asset copyWith({
+  PageBlock copyWith({
     String? id,
     String? name,
     String? description,
     String? imageUrl,
   }) {
-    return Asset(
+    return PageBlock(
       id: id ?? this.id,
       name: name ?? this.name,
       description: description ?? this.description,
@@ -38,8 +37,8 @@ class Asset {
     };
   }
 
-  factory Asset.fromMap(Map<String, dynamic> map, String id) {
-    return Asset(
+  factory PageBlock.fromMap(Map<String, dynamic> map, String id) {
+    return PageBlock(
       id: id,
       name: map['name'],
       description: map['description'],
@@ -47,10 +46,10 @@ class Asset {
     );
   }
 
-  factory Asset.fromMap2(DocumentSnapshot document) {
+  factory PageBlock.fromMap2(DocumentSnapshot document) {
     Map<String, dynamic> map = document.data() as Map<String, dynamic>;
     print('data: $map');
-    return Asset(
+    return PageBlock(
       id: document.id,
       name: map['name'],
       description: map['description'],
@@ -60,8 +59,8 @@ class Asset {
 
   String toJson() => json.encode(toMap());
 
-  factory Asset.fromJson(String source, String id) =>
-      Asset.fromMap(json.decode(source), id);
+  factory PageBlock.fromJson(String source, String id) =>
+      PageBlock.fromMap(json.decode(source), id);
 
   @override
   String toString() {
@@ -72,7 +71,7 @@ class Asset {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Asset &&
+    return other is PageBlock &&
         other.id == id &&
         other.name == name &&
         other.description == description &&
@@ -81,9 +80,6 @@ class Asset {
 
   @override
   int get hashCode {
-    return id.hashCode ^
-        name.hashCode ^
-        description.hashCode ^
-        media.hashCode;
+    return id.hashCode ^ name.hashCode ^ description.hashCode ^ media.hashCode;
   }
 }

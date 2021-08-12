@@ -36,7 +36,7 @@ class _BookingPageState extends State<BookingPage> {
           WebAppBar(3),
           SubSlide(
             image: 'assets/images/first.png',
-            text: 'Booker',
+            text: 'Obtenir un devis',
           ),
           vBox20(),
           Container(
@@ -45,7 +45,7 @@ class _BookingPageState extends State<BookingPage> {
             ),
             child: Column(
               children: [
-                HeaderLine(header: 'BOOKER'),
+                HeaderLine(header: 'OBTENIR UN DEVIS'),
                 vBox60(),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 40.0),

@@ -1,15 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:prooxyy_events/models/asset.dart';
+import 'package:prooxyy_events/models/page_block.dart';
 
-class AssetService {
+class PageBlockService {
 
-  AssetService._();
-  static AssetService get instance => AssetService._();
+  PageBlockService._();
+  static PageBlockService get instance => PageBlockService._();
 
   CollectionReference _c =
       FirebaseFirestore.instance.collection('assets');
 
-  Future<void> add(Asset theme) async {
+  Future<void> add(PageBlock theme) async {
     return _c
         .add(theme.toMap())
         .then((value) => print("Asset added"))
@@ -30,7 +30,7 @@ class AssetService {
   }
 
   @override
-  Future<void> update(String id, Asset entity) {
+  Future<void> update(String id, PageBlock entity) {
     return _c.doc(id).update(entity.toMap());
   }
 

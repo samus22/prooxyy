@@ -124,7 +124,7 @@ class _WebAppBarState extends State<WebAppBar> {
               _setIndex(3);
             },
             child: Text(
-              'BOOKER',
+              'OBTENIR UN DEVIS',
               style: TextStyle(
                 color:
                     index == 3 ? Theme.of(context).primaryColor : Colors.black,

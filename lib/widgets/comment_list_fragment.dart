@@ -3,10 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:prooxyy_events/models/booking.dart';
-import 'package:prooxyy_events/models/rating.dart';
+import 'package:prooxyy_events/models/comment.dart';
 // import 'package:prooxyy_events/models/note.dart';
 import 'package:prooxyy_events/services/all_bookings.dart';
-import 'package:prooxyy_events/services/rating.dart';
+import 'package:prooxyy_events/services/comment.dart';
 import 'package:prooxyy_events/services/user.dart';
 // import 'package:prooxyy_events/models/Note.dart';
 // import 'package:prooxyy_events/repositories/all_Notes.dart';
@@ -38,7 +38,7 @@ class _RatingListFragmentState extends State<RatingListFragment> {
 
   Widget _buildTile() {
     return StreamBuilder(
-        stream: RatingService2.instance.getByUser("userId").asStream(),
+        stream: CommentService2.instance.getByUser("userId").asStream(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Text('Something went wrong');
@@ -48,8 +48,8 @@ class _RatingListFragmentState extends State<RatingListFragment> {
             return Text("Loading");
           }
 
-          List<Rating> ratings =
-              snapshot.data!.docs.map((e) => Rating.fromMap2(e)).toList();
+          List<Comment> ratings =
+              snapshot.data!.docs.map((e) => Comment.fromMap2(e)).toList();
           return ListView.builder(
             shrinkWrap: true,
             itemBuilder: (ctx, index) => ListView(

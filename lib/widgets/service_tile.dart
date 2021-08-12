@@ -39,7 +39,7 @@ class ServiceTile extends StatelessWidget {
             ),
           if (isZero == 1)
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 headerText(title, size: 60.0),
                 vBox20(),
@@ -66,17 +66,17 @@ class ServiceTile extends StatelessWidget {
                               .pushNamed(BookingPage.routeName);
                         },
                       ),
-                      hBox80(),
-                      AppButton(
-                        text: 'Booker',
-                        color: isLast
-                            ? Theme.of(context).accentColor
-                            : Theme.of(context).primaryColor,
-                        handler: () {
-                          Navigator.of(context)
-                              .pushNamed(BookingPage.routeName);
-                        },
-                      ),
+                      // hBox80(),
+                      // AppButton(
+                      //   text: 'Booker',
+                      //   color: isLast
+                      //       ? Theme.of(context).accentColor
+                      //       : Theme.of(context).primaryColor,
+                      //   handler: () {
+                      //     Navigator.of(context)
+                      //         .pushNamed(BookingPage.routeName);
+                      //   },
+                      // ),
                     ],
                   ),
                 ),
@@ -88,7 +88,7 @@ class ServiceTile extends StatelessWidget {
           ),
           if (isZero == 0)
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 headerText(title, size: 60.0),
                 vBox20(),
@@ -104,6 +104,7 @@ class ServiceTile extends StatelessWidget {
                 Expanded(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       AppTextButton(
                         text: 'Obtenir un dévis',
@@ -112,14 +113,14 @@ class ServiceTile extends StatelessWidget {
                             : Theme.of(context).primaryColor,
                         handler: () {},
                       ),
-                      hBox80(),
-                      AppButton(
-                        text: 'Booker',
-                        color: title == 'Spécial Saint Valentin'
-                            ? Theme.of(context).accentColor
-                            : Theme.of(context).primaryColor,
-                        handler: () {},
-                      ),
+                      // hBox80(),
+                      // AppButton(
+                      //   text: 'Booker',
+                      //   color: title == 'Spécial Saint Valentin'
+                      //       ? Theme.of(context).accentColor
+                      //       : Theme.of(context).primaryColor,
+                      //   handler: () {},
+                      // ),
                     ],
                   ),
                 ),

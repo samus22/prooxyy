@@ -48,4 +48,8 @@ class CatalogService {
     return _c.doc(id).get();
   }
 
+  Future<QuerySnapshot> getByCategoryId(String categoryId) {
+    return _c.where('categoryId', isEqualTo: categoryId).get();
+  }
+
 }

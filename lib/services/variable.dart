@@ -48,4 +48,9 @@ class VariableService {
     return _c.doc(id).get();
   }
 
+  Future<DocumentSnapshot> getByNameAsSnapshot(String name) async {
+    QuerySnapshot q = await _c.where('name', isEqualTo: name).get();
+    return q.docs.first;
+  }
+
 }

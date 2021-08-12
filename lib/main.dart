@@ -20,7 +20,7 @@ import 'package:prooxyy_events/services/all_bookings.dart';
 import 'package:prooxyy_events/services/quote.dart';
 import 'package:prooxyy_events/services/all_users.dart';
 import 'package:prooxyy_events/services/category.dart';
-import 'package:prooxyy_events/services/rating.dart';
+import 'package:prooxyy_events/services/comment.dart';
 import 'package:prooxyy_events/services/themes.dart';
 import 'package:prooxyy_events/widgets/roulette_game.dart';
 import 'package:provider/provider.dart';
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         ChangeNotifierProvider.value(
-          value: RatingService(
+          value: CommentService(
             authToken: 'authToken',
             userId: 'userId',
           ),

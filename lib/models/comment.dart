@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Rating {
+class Comment {
   final String id;
   final double value; // This rating is done on 5
   final String avatar;
@@ -13,7 +13,7 @@ class Rating {
   final String category;
   final String booking; // Id of booking
 
-  Rating({
+  Comment({
     required this.id,
     required this.value,
     required this.comment,
@@ -25,7 +25,7 @@ class Rating {
     required this.category
   });
 
-  Rating copyWith({
+  Comment copyWith({
     String? id,
     double? value,
     String? avatar,
@@ -36,7 +36,7 @@ class Rating {
     String? booking,
     String? category
   }) {
-    return Rating(
+    return Comment(
       id: id ?? this.id,
       value: value ?? this.value,
       avatar: avatar ?? this.avatar,
@@ -62,8 +62,8 @@ class Rating {
     };
   }
 
-  factory Rating.fromMap(Map<String, dynamic> map, String id) {
-    return Rating(
+  factory Comment.fromMap(Map<String, dynamic> map, String id) {
+    return Comment(
       id: map['id'],
       value: map['value'],
       avatar: map['avatar'],
@@ -76,10 +76,10 @@ class Rating {
     );
   }
 
-  factory Rating.fromMap2(DocumentSnapshot document) {
+  factory Comment.fromMap2(DocumentSnapshot document) {
     Map<String, dynamic> map = document.data() as Map<String, dynamic>;
     print('data: $map');
-    return Rating(
+    return Comment(
       id: document.id,
       value: map['value'],
       avatar: map['avatar'],
@@ -94,19 +94,19 @@ class Rating {
 
   String toJson() => json.encode(toMap());
 
-  factory Rating.fromJson(String source, String id) =>
-      Rating.fromMap(json.decode(source), id);
+  factory Comment.fromJson(String source, String id) =>
+      Comment.fromMap(json.decode(source), id);
 
   @override
   String toString() {
-    return 'Rating(id: $id, value: $value, avatar: $avatar, ratedBy: $ratedBy, comment: $comment, ratedOn: $ratedOn, booking: $booking)';
+    return 'Comment(id: $id, value: $value, avatar: $avatar, ratedBy: $ratedBy, comment: $comment, ratedOn: $ratedOn, booking: $booking)';
   }
 
   @override
   bool operator == (Object other) {
     if (identical(this, other)) return true;
 
-    return other is Rating &&
+    return other is Comment &&
         other.id == id &&
         other.value == value &&
         other.avatar == avatar &&

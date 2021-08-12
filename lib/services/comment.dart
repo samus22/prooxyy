@@ -2,18 +2,18 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:prooxyy_events/models/rating.dart';
+import 'package:prooxyy_events/models/comment.dart';
 import 'package:http/http.dart' as http;
 import 'package:prooxyy_events/services/dao.dart';
 
-class RatingService with ChangeNotifier implements Dao<Rating> {
+class CommentService with ChangeNotifier implements Dao<Comment> {
   final String authToken;
   final String userId;
 
-  RatingService({required this.authToken, required this.userId});
+  CommentService({required this.authToken, required this.userId});
   final String url = 'c.com';
-  List<Rating> _items = [
-    Rating(
+  List<Comment> _items = [
+    Comment(
         id: 'co1',
         booking: 'b1',
         // categorie: 'Anniversaire',
@@ -30,7 +30,7 @@ class RatingService with ChangeNotifier implements Dao<Rating> {
     )
   ];
 
-  List<Rating> get items => [..._items];
+  List<Comment> get items => [..._items];
 
   Future<bool> addNote({
     required String id,
@@ -42,7 +42,7 @@ class RatingService with ChangeNotifier implements Dao<Rating> {
     required String comment,
     required DateTime ratedOn,
   }) async {
-    var cat = Rating(
+    var cat = Comment(
       id: id,
       category: '',
       booking: booking,
@@ -120,12 +120,12 @@ class RatingService with ChangeNotifier implements Dao<Rating> {
   }
 
   Future<bool> initNote() async {
-    List<Rating> list = [];
+    List<Comment> list = [];
     try {
       final response = await http.get(Uri.https(url, ''));
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
       extractedData.forEach((id, map) {
-        list.add(Rating.fromMap(map, id));
+        list.add(Comment.fromMap(map, id));
       });
       _items = [...list];
       notifyListeners();
@@ -136,14 +136,14 @@ class RatingService with ChangeNotifier implements Dao<Rating> {
     }
   }
 
-  Rating getNoteById(String id) =>
+  Comment getNoteById(String id) =>
       _items.firstWhere((element) => element.id == id);
 
-  Rating getNoteByBookingId(String id) =>
+  Comment getNoteByBookingId(String id) =>
       _items.firstWhere((element) => element.booking == id);
 
-  List<Rating> getNoteByUserId(String id) {
-    List<Rating> list = [];
+  List<Comment> getNoteByUserId(String id) {
+    List<Comment> list = [];
     _items.forEach((element) {
       if (element.ratedBy == id) list.add(element);
     });
@@ -155,7 +155,7 @@ class RatingService with ChangeNotifier implements Dao<Rating> {
   String get COLLECTION => throw UnimplementedError();
 
   @override
-  Future<void> add(Rating entity) {
+  Future<void> add(Comment entity) {
     // TODO: implement add
     throw UnimplementedError();
   }
@@ -179,7 +179,7 @@ class RatingService with ChangeNotifier implements Dao<Rating> {
   }
 
   @override
-  Future update(String id, Rating entity) {
+  Future update(String id, Comment entity) {
     // TODO: implement update
     throw UnimplementedError();
   }
@@ -197,19 +197,19 @@ class RatingService with ChangeNotifier implements Dao<Rating> {
   }
 }
 
-class RatingService2 {
+class CommentService2 {
 
-  RatingService2._();
-  static RatingService2 get instance => RatingService2._();
+  CommentService2._();
+  static CommentService2 get instance => CommentService2._();
 
   CollectionReference _c =
-      FirebaseFirestore.instance.collection('rating');
+      FirebaseFirestore.instance.collection('comment');
 
-  Future<void> add(Rating rating) async {
+  Future<void> add(Comment comment) async {
     return _c
-        .add(rating.toMap())
-        .then((value) => print("Rating Added"))
-        .catchError((error) => print("Failed to add rating: $error"));
+        .add(comment.toMap())
+        .then((value) => print("Comment Added"))
+        .catchError((error) => print("Failed to add comment: $error"));
   }
 
   Future<DocumentSnapshot> getAsSnapShot(String documentId) async {
@@ -226,7 +226,7 @@ class RatingService2 {
   }
 
   @override
-  Future<void> update(String id, Rating entity) {
+  Future<void> update(String id, Comment entity) {
     Map<String, dynamic> userDataMap = entity.toMap();
     String id = entity.id;
     userDataMap.remove('id');
