@@ -70,8 +70,8 @@ class Home extends StatelessWidget {
                 const SizedBox(
                   height: 80.0,
                 ),
-                CatalogPageForm(),
-                vBox80(),
+                // CatalogPageForm(),
+                // vBox80(),
                 ImageBloc(),
                 vBox80(),
                 headerText('Un aperçu de notre travail', size: 50.0),
